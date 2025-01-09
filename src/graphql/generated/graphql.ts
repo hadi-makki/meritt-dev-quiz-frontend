@@ -212,6 +212,13 @@ export enum Sorting {
   Desc = 'DESC'
 }
 
+export type CreateContactUsMutationVariables = Exact<{
+  input: ContactUsCreateInput;
+}>;
+
+
+export type CreateContactUsMutation = { __typename?: 'Mutation', createContactus: { __typename?: 'SingleContactUs', error?: { __typename?: 'FieldError', field: string, message: string } | null, item?: { __typename?: 'ContactUs', _id: string, full_name: string, phone_number: string, subject: string, body: string, createdAt: any, updatedAt: any } | null } };
+
 export type GetAllContactusQueryVariables = Exact<{
   page: Scalars['PositiveInt']['input'];
   limit: Scalars['PositiveInt']['input'];
@@ -242,6 +249,51 @@ export type GetSingleProductQueryVariables = Exact<{
 export type GetSingleProductQuery = { __typename?: 'Query', getProduct: { __typename?: 'SingleProduct', error?: { __typename?: 'FieldError', field: string, message: string } | null, item?: { __typename?: 'Product', _id: string, description: string, images: Array<string>, quantity: number, title: string, updatedAt: any, createdAt: any } | null } };
 
 
+export const CreateContactUsDocument = gql`
+    mutation CreateContactUs($input: ContactUsCreateInput!) {
+  createContactus(input: $input) {
+    error {
+      field
+      message
+    }
+    item {
+      _id
+      full_name
+      phone_number
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `;
+export type CreateContactUsMutationFn = Apollo.MutationFunction<CreateContactUsMutation, CreateContactUsMutationVariables>;
+
+/**
+ * __useCreateContactUsMutation__
+ *
+ * To run a mutation, you first call `useCreateContactUsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateContactUsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createContactUsMutation, { data, loading, error }] = useCreateContactUsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateContactUsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateContactUsMutation, CreateContactUsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<CreateContactUsMutation, CreateContactUsMutationVariables>(CreateContactUsDocument, options);
+      }
+export type CreateContactUsMutationHookResult = ReturnType<typeof useCreateContactUsMutation>;
+export type CreateContactUsMutationResult = Apollo.MutationResult<CreateContactUsMutation>;
+export type CreateContactUsMutationOptions = Apollo.BaseMutationOptions<CreateContactUsMutation, CreateContactUsMutationVariables>;
 export const GetAllContactusDocument = gql`
     query GetAllContactus($page: PositiveInt!, $limit: PositiveInt!, $searchFields: SearchContactUsFields!, $sort: SortContactUsArgs!, $filters: ContactUsFilter) {
   getAllContactus(

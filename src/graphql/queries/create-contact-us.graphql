@@ -1,0 +1,17 @@
+mutation CreateContactUs($input: ContactUsCreateInput!) {
+  createContactus(input: $input) {
+    error {
+      field
+      message
+    }
+    item {
+      _id
+      full_name
+      phone_number
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+}

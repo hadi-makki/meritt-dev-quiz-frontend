@@ -1,10 +1,10 @@
-import { SignleProductView } from "@/views";
+import { CreateContactView } from "@/views";
 import React from "react";
 
 type Props = {};
 
 function page({}: Props) {
-  return <SignleProductView />;
+  return <CreateContactView />;
 }
 
 export default page;
