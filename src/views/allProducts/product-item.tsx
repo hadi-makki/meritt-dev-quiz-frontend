@@ -45,16 +45,19 @@ function ProductItem({ product }: Props) {
         </Carousel>
       </div>
       <div>
-        <Link
-          href={`/all-products/${product._id}`}
-          className="text-xl text-neutral-600 font-semibold hover:text-sky-500 hover:underline transition-all duration-100 hover:cursor-pointer"
-        >
+        <p className="text-xl text-neutral-600 font-semibold ">
           {product.title}
-        </Link>
+        </p>
         <div className="">{product.description}</div>
         <p>
           stock: <span className="text-neutral-600">{product.quantity}</span>
         </p>
+        <Link
+          href={`/all-products/${product._id}`}
+          className="flex items-center gap-2 text-sky-500 hover:text-sky-600 hover:underline transition-all duration-100"
+        >
+          View more details{" "}
+        </Link>
       </div>
     </div>
   );

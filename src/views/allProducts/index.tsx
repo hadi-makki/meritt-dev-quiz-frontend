@@ -91,7 +91,7 @@ function Index({}: Props) {
         </Button>
       </div>
       <div className="py-4 px-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {[...allProducts, ...allProducts].map((item, index) => (
+        {allProducts.map((item, index) => (
           <ProductItem key={index} product={item as Product} />
         ))}
       </div>
