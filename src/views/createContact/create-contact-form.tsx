@@ -56,7 +56,7 @@ function CreateContactForm({}: Props) {
           description: "We will get back to you soon",
         });
         resetForm();
-      } catch (error) {
+      } catch {
         toast({
           title: "Error submitting form",
           variant: "destructive",

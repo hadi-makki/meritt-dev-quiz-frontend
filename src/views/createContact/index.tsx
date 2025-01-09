@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import CreateContactForm from "./create-contact-form";
 import Link from "next/link";

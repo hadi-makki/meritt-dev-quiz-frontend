@@ -12,6 +12,7 @@ import { useCallback, useMemo } from "react";
 import ProductItem from "./product-item";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Pagination from "@/components/ui/pagination";
 
 type Props = {};
 
@@ -58,35 +59,6 @@ function Index({}: Props) {
     };
   }, [data?.getAllProduct, limit]);
 
-  // Render pagination page numbers
-  const renderPageNumbers = useCallback(() => {
-    const pageNumbers = [];
-    const maxVisiblePages = 5;
-
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-    // Adjust if we don't have enough pages visible
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(
-        <Button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          variant={i === currentPage ? "secondary" : "outline"}
-          className="mx-1"
-        >
-          {i}
-        </Button>
-      );
-    }
-
-    return pageNumbers;
-  }, [currentPage, handlePageChange, totalPages]);
-
   if (loading) {
     return (
       <div className="h-screen">
@@ -119,35 +91,17 @@ function Index({}: Props) {
         </Button>
       </div>
       <div className="py-4 px-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {allProducts.map((item, index) => (
+        {[...allProducts, ...allProducts].map((item, index) => (
           <ProductItem key={index} product={item as Product} />
         ))}
       </div>
       {/* Pagination */}
-      <div className="flex flex-col items-center mt-4 space-y-2">
-        <div className="flex items-center space-x-2">
-          {currentPage > 1 && (
-            <Button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </Button>
-          )}
-          {renderPageNumbers()}
-          {currentPage < totalPages && (
-            <Button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </Button>
-          )}
-        </div>
-        <div className="text-sm text-gray-500">
-          Page {currentPage} of {totalPages} | Total items: {allProductsLength}
-        </div>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        totalItems={allProductsLength}
+      />
     </div>
   );
 }
