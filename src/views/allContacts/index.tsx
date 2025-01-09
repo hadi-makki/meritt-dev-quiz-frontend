@@ -1,21 +1,21 @@
-'use client';
+"use client";
 import {
   ContactUs,
   ContactUsSearchFields,
   Sorting,
   useGetAllContactusQuery,
-} from '@/graphql/generated/graphql';
-import { useSearchParams } from 'next/navigation';
-import React, { useMemo } from 'react';
-import { ContactTable } from './table';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+} from "@/graphql/generated/graphql";
+import { useSearchParams } from "next/navigation";
+import React, { useMemo } from "react";
+import { ContactTable } from "./table";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const Index = () => {
   const params = useSearchParams();
 
-  const page = params.get('page');
-  const limit = params.get('limit');
+  const page = params.get("page");
+  const limit = params.get("limit");
 
   const { data, loading } = useGetAllContactusQuery({
     variables: {
@@ -27,7 +27,7 @@ const Index = () => {
       },
       searchFields: {
         fields: [ContactUsSearchFields.FullName],
-        q: '',
+        q: "",
       },
     },
   });
@@ -49,10 +49,10 @@ const Index = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto py-4 px-2">
+    <div className="py-4 px-2">
       <div className="text-2xl font-bold mb-4">
         <Button asChild>
-          <Link href={'/'}>Go Back</Link>
+          <Link href={"/"}>Go Back</Link>
         </Button>
       </div>
       <h1 className="text-2xl font-bold mb-4">All Contacts</h1>

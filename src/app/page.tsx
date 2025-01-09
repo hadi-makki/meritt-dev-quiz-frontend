@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="py-4 max-w-7xl mx-auto font-[family-name:var(--font-geist-sans)]">
+    <div className="py-4  font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-start sm:items-start">
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <Link

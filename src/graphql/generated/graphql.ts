@@ -223,6 +223,17 @@ export type GetAllContactusQueryVariables = Exact<{
 
 export type GetAllContactusQuery = { __typename?: 'Query', getAllContactus: { __typename?: 'PaginatedContactUs', length: number, error?: { __typename?: 'FieldError', field: string, message: string } | null, items?: Array<{ __typename?: 'ContactUs', _id: string, createdAt: any, full_name: string, phone_number: string, subject: string, body: string }> | null } };
 
+export type GetAllProductsQueryVariables = Exact<{
+  filters?: InputMaybe<Scalars['ProductFilter']['input']>;
+  limit: Scalars['PositiveInt']['input'];
+  page: Scalars['PositiveInt']['input'];
+  searchFields: SearchProductFields;
+  sort: SortProductArgs;
+}>;
+
+
+export type GetAllProductsQuery = { __typename?: 'Query', getAllProduct: { __typename?: 'PaginatedProduct', length: number, error?: { __typename?: 'FieldError', field: string, message: string } | null, items?: Array<{ __typename?: 'Product', _id: string, description: string, images: Array<string>, quantity: number, title: string, updatedAt: any }> | null } };
+
 
 export const GetAllContactusDocument = gql`
     query GetAllContactus($page: PositiveInt!, $limit: PositiveInt!, $searchFields: SearchContactUsFields!, $sort: SortContactUsArgs!, $filters: ContactUsFilter) {
@@ -286,3 +297,65 @@ export type GetAllContactusQueryHookResult = ReturnType<typeof useGetAllContactu
 export type GetAllContactusLazyQueryHookResult = ReturnType<typeof useGetAllContactusLazyQuery>;
 export type GetAllContactusSuspenseQueryHookResult = ReturnType<typeof useGetAllContactusSuspenseQuery>;
 export type GetAllContactusQueryResult = Apollo.QueryResult<GetAllContactusQuery, GetAllContactusQueryVariables>;
+export const GetAllProductsDocument = gql`
+    query getAllProducts($filters: ProductFilter, $limit: PositiveInt!, $page: PositiveInt!, $searchFields: SearchProductFields!, $sort: SortProductArgs!) {
+  getAllProduct(
+    filters: $filters
+    limit: $limit
+    page: $page
+    searchFields: $searchFields
+    sort: $sort
+  ) {
+    error {
+      field
+      message
+    }
+    length
+    items {
+      _id
+      description
+      images
+      quantity
+      title
+      updatedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllProductsQuery__
+ *
+ * To run a query within a React component, call `useGetAllProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllProductsQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *      limit: // value for 'limit'
+ *      page: // value for 'page'
+ *      searchFields: // value for 'searchFields'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useGetAllProductsQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetAllProductsQuery, GetAllProductsQueryVariables> & ({ variables: GetAllProductsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetAllProductsQuery, GetAllProductsQueryVariables>(GetAllProductsDocument, options);
+      }
+export function useGetAllProductsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllProductsQuery, GetAllProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetAllProductsQuery, GetAllProductsQueryVariables>(GetAllProductsDocument, options);
+        }
+export function useGetAllProductsSuspenseQuery(baseOptions?: ApolloReactHooks.SkipToken | ApolloReactHooks.SuspenseQueryHookOptions<GetAllProductsQuery, GetAllProductsQueryVariables>) {
+          const options = baseOptions === ApolloReactHooks.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useSuspenseQuery<GetAllProductsQuery, GetAllProductsQueryVariables>(GetAllProductsDocument, options);
+        }
+export type GetAllProductsQueryHookResult = ReturnType<typeof useGetAllProductsQuery>;
+export type GetAllProductsLazyQueryHookResult = ReturnType<typeof useGetAllProductsLazyQuery>;
+export type GetAllProductsSuspenseQueryHookResult = ReturnType<typeof useGetAllProductsSuspenseQuery>;
+export type GetAllProductsQueryResult = Apollo.QueryResult<GetAllProductsQuery, GetAllProductsQueryVariables>;

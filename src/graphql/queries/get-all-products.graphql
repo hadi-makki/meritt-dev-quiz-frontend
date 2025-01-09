@@ -1,0 +1,29 @@
+query getAllProducts(
+  $filters: ProductFilter
+  $limit: PositiveInt!
+  $page: PositiveInt!
+  $searchFields: SearchProductFields!
+  $sort: SortProductArgs!
+) {
+  getAllProduct(
+    filters: $filters
+    limit: $limit
+    page: $page
+    searchFields: $searchFields
+    sort: $sort
+  ) {
+    error {
+      field
+      message
+    }
+    length
+    items {
+      _id
+      description
+      images
+      quantity
+      title
+      updatedAt
+    }
+  }
+}
