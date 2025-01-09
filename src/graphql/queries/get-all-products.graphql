@@ -24,6 +24,7 @@ query getAllProducts(
       quantity
       title
       updatedAt
+      createdAt
     }
   }
 }

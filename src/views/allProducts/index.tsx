@@ -1,29 +1,28 @@
 "use client";
 import Loader from "@/components/ui/loader";
 import {
+  Product,
   ProductSearchFields,
   Sorting,
   useGetAllProductsQuery,
 } from "@/graphql/generated/graphql";
-import Image from "next/image";
-import React from "react";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+import ProductItem from "./product-item";
 
 type Props = {};
 
 function Index({}: Props) {
+  const params = useSearchParams();
+
+  const page = params.get("page");
+  const limit = params.get("limit");
+
   const { data, loading, error } = useGetAllProductsQuery({
     variables: {
-      limit: 30,
-      page: 1,
+      limit: limit ? limit : 30,
+      page: page ? page : 1,
       searchFields: {
         fields: [ProductSearchFields.Title],
         q: "",
@@ -34,6 +33,15 @@ function Index({}: Props) {
       },
     },
   });
+
+  const { allProducts, allProductsLength, totalPages } = useMemo(() => {
+    return {
+      allProducts: data?.getAllProduct.items,
+      allProductsLength: data?.getAllProduct.length,
+      totalPages: Math.ceil(+data?.getAllProduct?.length! / +limit!),
+    };
+  }, [data?.getAllProduct.items, data?.getAllProduct.length, limit]);
+
   if (loading) {
     return (
       <div className="h-screen">
@@ -49,7 +57,7 @@ function Index({}: Props) {
     );
   }
 
-  if (data?.getAllProduct.length === 0) {
+  if (allProductsLength === 0) {
     return (
       <div className="h-screen flex items-center justify-center">
         <h1>No Products Found</h1>
@@ -58,40 +66,8 @@ function Index({}: Props) {
   }
   return (
     <div className="py-4 px-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {data?.getAllProduct.items?.map((item, index) => {
-        return (
-          <div
-            key={index}
-            className=" p-4 rounded-lg bg-zinc-100 w-full space-y-4"
-          >
-            <div>
-              <Carousel className="w-full ">
-                <CarouselContent>
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <CarouselItem key={index}>
-                      <Image
-                        src={"/error-loading-image.png"}
-                        alt={item.title}
-                        width={500}
-                        height={500}
-                        className="w-full"
-                      />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                {/* <CarouselPrevious /> */}
-                {/* <CarouselNext /> */}
-              </Carousel>
-            </div>
-            <Link
-              href={`/product/${item._id}`}
-              className="text-xl text-neutral-600 font-semibold hover:text-sky-500 hover:underline transition-all duration-100"
-            >
-              {item.title}
-            </Link>
-            <div className="">{item.description}</div>
-          </div>
-        );
+      {allProducts?.map((item, index) => {
+        return <ProductItem key={index} product={item as Product} />;
       })}
     </div>
   );

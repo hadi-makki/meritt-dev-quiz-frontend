@@ -232,7 +232,7 @@ export type GetAllProductsQueryVariables = Exact<{
 }>;
 
 
-export type GetAllProductsQuery = { __typename?: 'Query', getAllProduct: { __typename?: 'PaginatedProduct', length: number, error?: { __typename?: 'FieldError', field: string, message: string } | null, items?: Array<{ __typename?: 'Product', _id: string, description: string, images: Array<string>, quantity: number, title: string, updatedAt: any }> | null } };
+export type GetAllProductsQuery = { __typename?: 'Query', getAllProduct: { __typename?: 'PaginatedProduct', length: number, error?: { __typename?: 'FieldError', field: string, message: string } | null, items?: Array<{ __typename?: 'Product', _id: string, description: string, images: Array<string>, quantity: number, title: string, updatedAt: any, createdAt: any }> | null } };
 
 
 export const GetAllContactusDocument = gql`
@@ -318,6 +318,7 @@ export const GetAllProductsDocument = gql`
       quantity
       title
       updatedAt
+      createdAt
     }
   }
 }
