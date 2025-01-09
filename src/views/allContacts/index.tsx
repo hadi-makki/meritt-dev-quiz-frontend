@@ -10,6 +10,7 @@ import React, { useMemo } from "react";
 import { ContactTable } from "./table";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Loader from "@/components/ui/loader";
 
 const Index = () => {
   const params = useSearchParams();
@@ -42,8 +43,8 @@ const Index = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-screen flex items-center justify-center text-4xl font-bold">
-        loading...
+      <div className="h-screen">
+        <Loader />
       </div>
     );
   }
