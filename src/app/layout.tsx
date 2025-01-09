@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ApolloLayout>
-          <div className="max-w-7xl mx-auto max-md:mx-4">{children}</div>
+          <div className="max-w-7xl mx-auto max-xl:mx-4">{children}</div>
         </ApolloLayout>
         <Toaster />
       </body>
