@@ -1,0 +1,17 @@
+query getProduct($id: ObjectID!) {
+  getProduct(_id: $id) {
+    error {
+      field
+      message
+    }
+    item {
+      _id
+      description
+      images
+      quantity
+      title
+      updatedAt
+      createdAt
+    }
+  }
+}

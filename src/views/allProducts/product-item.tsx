@@ -15,7 +15,6 @@ type Props = {
 
 function ProductItem({ product }: Props) {
   const plugin = React.useRef(Autoplay({ delay: 2000 }));
-  console.log("this is the product", product);
   return (
     <div className=" p-4 rounded-lg bg-zinc-100 w-full space-y-4">
       <div>
