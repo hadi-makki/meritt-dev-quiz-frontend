@@ -1,9 +1,10 @@
+import { SignleProduct } from "@/views";
 import React from "react";
 
 type Props = {};
 
 function page({}: Props) {
-  return <div>page</div>;
+  return <SignleProduct />;
 }
 
 export default page;

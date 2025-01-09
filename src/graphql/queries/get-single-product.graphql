@@ -1,4 +1,4 @@
-query getProduct($id: ObjectID!) {
+query getSingleProduct($id: ObjectID!) {
   getProduct(_id: $id) {
     error {
       field
